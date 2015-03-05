@@ -36,6 +36,7 @@ use SimpleIT\ClaireExerciseBundle\Model\Resources\ExerciseResource\CommonResourc
 use SimpleIT\ClaireExerciseBundle\Model\Resources\ExerciseResource\MultipleChoice\MultipleChoicePropositionResource;
 use SimpleIT\ClaireExerciseBundle\Model\Resources\ExerciseResource\MultipleChoiceQuestionResource;
 use SimpleIT\ClaireExerciseBundle\Model\Resources\ExerciseResource\MultipleChoiceFormulaQuestionResource;
+use SimpleIT\ClaireExerciseBundle\Model\Resources\ExerciseResource\MultipleChoiceFormula\MultipleChoiceFormulaPropositionResource;
 use SimpleIT\ClaireExerciseBundle\Model\Resources\ExerciseResource\OpenEndedQuestionResource;
 use SimpleIT\ClaireExerciseBundle\Model\Resources\ExerciseResource\PictureResource;
 use SimpleIT\ClaireExerciseBundle\Model\Resources\ExerciseResource\Sequence\ResourceId;
@@ -542,7 +543,8 @@ class ExerciseResourceService extends SharedEntityService implements ExerciseRes
         &$errorCode
     )
     {
-        if ($content->getQuestion() === null) {
+        /** Test if the question have at least a text or a picture ressource */
+        if (($content->getQuestion() === null) && ($content->getPictureId() === 0)) {
             $errorCode = '803';
 
             return false;
@@ -555,8 +557,9 @@ class ExerciseResourceService extends SharedEntityService implements ExerciseRes
         }
 
         /** @var MultipleChoicePropositionResource $proposition */
+        /** Test if each proposition have at least a text or a picture ressource */
         foreach ($content->getPropositions() as $proposition) {
-            if ($proposition->getText() === null) {
+        if (($proposition->getText() === null) && ($proposition->getPicturePropositionId() === 0)) {
                 $errorCode = '806';
 
                 return false;

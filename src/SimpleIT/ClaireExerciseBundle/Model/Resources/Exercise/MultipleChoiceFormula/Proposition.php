@@ -48,6 +48,14 @@ class Proposition
      * @Serializer\Groups({"details", "corrected"})
      */
     private $ticked;
+    
+    
+    /**
+     * @var int $picturePropositionId
+     * @Serializer\Type("integer")
+     * @Serializer\Groups({"details", "corrected", "not_corrected", "item_storage"})
+     */
+    private $picturePropositionId;
 
     /**
      * Constructor
@@ -55,12 +63,14 @@ class Proposition
      * @param string  $text
      * @param boolean $right
      * @param boolean $ticked
+     * @param integer $picturePropositionId
      */
-    function __construct($text, $right, $ticked)
+    function __construct($text, $right, $ticked, $picturePropositionId = 0)
     {
         $this->text = $text;
         $this->right = $right;
         $this->ticked = $ticked;
+        $this->picturePropositionId = $picturePropositionId;
     }
 
     /**
@@ -121,5 +131,22 @@ class Proposition
     public function setTicked($ticked)
     {
         $this->ticked = $ticked;
+    }
+    
+    /**
+     * Get picturePropositionIds
+     * @return int
+     */
+    public function getPicturePropositionId() {
+        return $this->picturePropositionId;
+    }
+
+    /**
+     * Set picturePropositionIds
+     * 
+     * @param int $picturePropositionId
+     */
+    public function setPicturePropositionId($picturePropositionId) {
+        $this->picturePropositionId = $picturePropositionId;
     }
 }

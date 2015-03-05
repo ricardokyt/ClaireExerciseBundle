@@ -180,10 +180,13 @@ resourceControllers.controller('resourceController', ['$scope', '$modal',
                         "formulas": [],
                         "do_not_shuffle": true,
                         "question": null,
+                        "pictureId": 0,
+                        "picturePropositionIds": [],
                         "propositions": [
                             {
                                 "text": null,
-                                "right": true
+                                "right": true,
+                                "picturePropositionId": 0
                             }
                         ],
                         "comment": null,
@@ -465,6 +468,7 @@ resourceControllers.filter('myFilters', function () {
 resourceControllers.controller('resourceEditController', ['$scope', '$modal', 'Resource', 'Upload', '$location', '$stateParams', 'User', '$upload',
     function ($scope, $modal, Resource, Upload, $location, $stateParams, User, $upload) {
         $scope.resourcePanelContext = "resourceEdit";
+        $scope.imageUrl = BASE_CONFIG.urls.images.uploads;
 
         // retrieve resource
         if (typeof $scope.resources === "undefined") {
@@ -472,7 +476,7 @@ resourceControllers.controller('resourceEditController', ['$scope', '$modal', 'R
         } else {
             $scope.editedResource = jQuery.extend(true, {}, $scope.resources[$stateParams.resourceid]);
         }
-
+        
         // resource for md link
         $scope.resource = null;
         $scope.resourceAddMD = {key: '', value: ''};

@@ -19,7 +19,7 @@
 namespace SimpleIT\ClaireExerciseBundle\ParamConverter;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use SimpleIT\ClaireExerciseBundle\Exception\Api\ApiException;
 use SimpleIT\ClaireExerciseBundle\Service\Serializer\SerializerInterface;
@@ -32,7 +32,6 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class ApiResourceParamConverter implements ParamConverterInterface
 {
-
     /**
      * @var  SerializerInterface
      */
@@ -41,13 +40,13 @@ class ApiResourceParamConverter implements ParamConverterInterface
     /**
      * Apply
      *
-     * @param Request                $request       Request
-     * @param ConfigurationInterface $configuration Configuration
+     * @param Request        $request       Request
+     * @param ParamConverter $configuration Configuration
      *
      * @throws ApiException
      * @return bool
      */
-    public function apply(Request $request, ConfigurationInterface $configuration)
+    public function apply(Request $request, ParamConverter $configuration)
     {
         try {
             // Array deserialization
@@ -91,11 +90,11 @@ class ApiResourceParamConverter implements ParamConverterInterface
     /**
      * Supports
      *
-     * @param ConfigurationInterface $configuration Configuration
+     * @param ParamConverter $configuration Configuration
      *
      * @return bool
      */
-    public function supports(ConfigurationInterface $configuration)
+    public function supports(ParamConverter $configuration)
     {
         if (null === $configuration->getClass()) {
             return false;

@@ -51,6 +51,14 @@ class MultipleChoiceFormulaPropositionResource
      * @Assert\NotBlank(groups={"create"})
      */
     private $forceUse;
+    
+    /**
+     * @var integer
+     * @Serializer\Type("integer")
+     * @Serializer\Groups({"details", "resource_storage"})
+     * @Assert\NotBlank(groups={"create"})
+     */    
+    private $picturePropositionId = 0;
 
     /**
      * Set right
@@ -110,5 +118,21 @@ class MultipleChoiceFormulaPropositionResource
     public function getForceUse()
     {
         return $this->forceUse;
+    }
+
+    /**
+     * Get picturePropositionId
+     * @return int
+     */
+    public function getPicturePropositionId() {
+        return $this->picturePropositionId;
+    }
+
+    /**
+     * Set picturePropositionId
+     * @param int $picturePropositionId
+     */
+    public function setPicturePropositionId($picturePropositionId) {
+        $this->picturePropositionId = $picturePropositionId;
     }
 }

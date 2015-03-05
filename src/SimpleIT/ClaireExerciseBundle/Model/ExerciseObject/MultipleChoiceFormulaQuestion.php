@@ -89,6 +89,16 @@ class MultipleChoiceFormulaQuestion extends ExerciseObject
      * @var boolean $doNotShuffle
      */
     private $doNotShuffle;
+    
+    /**
+     * @var int $pictureId
+     */
+    private $pictureId;
+    
+    /**
+     * @var array<int> $picturePropositionIds
+     */
+    private $picturePropositionIds = array();
 
     /**
      * setWording for generated proposition
@@ -270,23 +280,58 @@ class MultipleChoiceFormulaQuestion extends ExerciseObject
     {
         return $this->doNotShuffle;
     }
+    
+    /**
+     * Get pictureId
+     * 
+     * @return int
+     */
+    public function getPictureId() {
+        return $this->pictureId;
+    }
 
+    /**
+     * Set pictureId
+     * 
+     * @param int $pictureId
+     */
+    public function setPictureId($pictureId) {
+        $this->pictureId = $pictureId;
+    }
+    
+    /**
+     * Get picturePropositionIds
+     * 
+     * @return array
+     */
+    public function getPicturePropositionIds() {
+        return $this->picturePropositionIds;
+    }
+
+    /**
+     * Set picturePropositionIds
+     * 
+     * @param array $picturePropositionIds
+     */
+    public function setPicturePropositionIds($picturePropositionIds) {
+        $this->picturePropositionIds = $picturePropositionIds;
+    }
+    
     /**
      * Add a proposition
      *
      * @param $text
      * @param $right
      * @param $forceUse
+     * @param $picturePropositionId
      */
-    public function addProposition($text, $right, $forceUse)
+    public function addProposition($text, $right, $forceUse, $picturePropositionId = 0)
     {
         $key = count($this->propositions);
         $this->propositions[$key] = $text;
         $this->right[$key] = $right;
         $this->forceUse[$key] = ($forceUse === true);
+        $this->picturePropositionIds[$key] = $picturePropositionId;
     }
-
-
-
 
 }

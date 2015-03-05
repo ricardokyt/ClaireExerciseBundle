@@ -275,14 +275,33 @@
             <div class="panel-heading">
                 <h4>Question de QCM</h4>
                 <input type="text" ng-model="editedResource.content.question" class="form-control">
+                <input type="number" ng-model="editedResource.content.picture_id" class="form-control" style="height: 25px">
+                <div ng-if="!editedResource.content.picture_id || resources[editedResource.content.picture_id].type != 'picture'"><div data-ng-include="BASE_CONFIG.urls.partials.teacher+'/add_picture.html'"></div></div>
+                <div ng-if="editedResource.content.picture_id && resources[editedResource.content.picture_id].type == 'picture'">
+                    <a href="{{ imageUrl }}{{ resources[editedResource.content.picture_id].content.source }}"
+                       data-lightbox="mobile" data-title="Image à placer">
+                        <img ng-src="{{ imageUrl }}{{ resources[editedResource.content.picture_id].content.source }}"
+                             class="etiquette img-etiquette"/>
+                    </a>
+                </div>
+                
             </div>
             <div style="margin-left:1%; margin-right: 1%">
                 <h4>Propositions</h4>
 
                 <div class="panel panel-success row" data-ng-repeat="proposition in editedResource.content.propositions track by $index">
                     <div class="col-xs-5">
-                        <label>Intitulé de la proposition</label>
+                        <label>Intitulé de la proposition!</label>
                         <input type="text" ng-model="proposition.text" class="form-control">
+                        <input type="number" ng-model="proposition.picture_proposition_id" class="form-control" style="height: 25px">
+                        <div ng-if="!proposition.picture_proposition_id || resources[proposition.picture_proposition_id].type != 'picture'"><div data-ng-include="BASE_CONFIG.urls.partials.teacher+'/add_picture.html'"></div></div>
+                        <div ng-if="proposition.picture_proposition_id && resources[proposition.picture_proposition_id].type == 'picture'">
+                            <a href="{{ imageUrl }}{{ resources[proposition.picture_proposition_id].content.source }}"
+                               data-lightbox="mobile" data-title="Image à placer">
+                                <img ng-src="{{ imageUrl }}{{ resources[proposition.picture_proposition_id].content.source }}"
+                                     class="etiquette img-etiquette"/>
+                            </a>
+                        </div>
                     </div>
                     <div class="col-xs-3 text-center" data-ng-click="proposition.right=!proposition.right">
                         <span class="glyphicon" ng-class="{'glyphicon-check': proposition.right, 'glyphicon-unchecked': !proposition.right}"></span>

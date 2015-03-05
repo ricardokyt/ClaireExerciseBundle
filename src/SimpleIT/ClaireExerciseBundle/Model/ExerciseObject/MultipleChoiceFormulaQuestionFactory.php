@@ -44,10 +44,12 @@ class MultipleChoiceFormulaQuestionFactory
         $mcq->setDoNotShuffle($res->getDoNotShuffle() === true);
         $mcq->setMaxNOfRightPropositions($res->getMaxNumberOfRightPropositions());
         $mcq->setMaxNumberOfPropositions($res->getMaxNumberOfPropositions());
+        $mcq->setPictureId($res->getPictureId());
+        $mcq->setPicturePropositionIds($res->getPicturePropositionIds());
 
         /** @var MultipleChoicePropositionResource $prop */
         foreach ($res->getPropositions() as $prop) {
-            $mcq->addProposition($prop->getText(), $prop->getRight(), $prop->getForceUse());
+            $mcq->addProposition($prop->getText(), $prop->getRight(), $prop->getForceUse(), $prop->getPicturePropositionId());
         }
 
         return $mcq;

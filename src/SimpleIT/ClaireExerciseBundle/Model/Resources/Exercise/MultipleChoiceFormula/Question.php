@@ -59,6 +59,20 @@ class Question extends CommonItem implements Markable
      * @Serializer\Groups({"details", "corrected", "not_corrected", "item_storage"})
      */
     private $originResource;
+    
+    /**
+     * @var int $pictureId
+     * @Serializer\Type("integer")
+     * @Serializer\Groups({"details", "corrected", "not_corrected", "item_storage"})
+     */
+    private $pictureId;
+    
+    /**
+     * @var array 
+     * @Serializer\Type("array<integer>")
+     * @Serializer\Groups({"details", "corrected", "not_corrected", "item_storage"})
+     */
+    private $picturePropositionIds = array();
 
     /**
      * Shuffle the order of the propositions
@@ -96,10 +110,12 @@ class Question extends CommonItem implements Markable
      * @param boolean $right True if this is a right proposition, false else.
      * @param string  $text  The proposition text
      * @param null    $ticked
+     * @param integer $picturePropositionId 
      */
-    public function addProposition($right, $text, $ticked = null)
+    public function addProposition($right, $text, $ticked = null, $picturePropositionId = 0)
     {
-        $this->propositions[] = new Proposition($text, $right, $ticked);
+        $this->propositions[] = new Proposition($text, $right, $ticked, $picturePropositionId);
+        array_push($this->picturePropositionIds, $picturePropositionId);
     }
 
     /**
@@ -161,5 +177,39 @@ class Question extends CommonItem implements Markable
     public function getOriginResource()
     {
         return $this->originResource;
+    }
+    
+    /**
+     * Get pictureId
+     * 
+     * @return int
+     */
+    public function getPictureId() {
+        return $this->pictureId;
+    }
+    
+    /**
+     * Set pictureId
+     * 
+     * @return int $pictureId
+     */
+    public function setPictureId($pictureId) {
+        $this->pictureId = $pictureId;
+    }
+
+    /**
+     * Get picturePropositionIds
+     * @return array
+     */
+    public function getPicturePropositionIds() {
+        return $this->picturePropositionIds;
+    }
+
+    /**
+     * Set picturePropositionIds
+     * @param array $picturePropositionIds
+     */
+    public function setPicturePropositionIds($picturePropositionIds) {
+        $this->picturePropositionIds = $picturePropositionIds;
     }
 }

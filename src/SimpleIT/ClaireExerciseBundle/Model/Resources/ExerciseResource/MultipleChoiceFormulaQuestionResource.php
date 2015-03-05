@@ -38,7 +38,7 @@ class MultipleChoiceFormulaQuestionResource extends CommonResource
 
     /**
      * @var array $propositions An array of Proposition
-     * @Serializer\Type("array<SimpleIT\ClaireExerciseBundle\Model\Resources\ExerciseResource\MultipleChoice\MultipleChoicePropositionResource>")
+     * @Serializer\Type("array<SimpleIT\ClaireExerciseBundle\Model\Resources\ExerciseResource\MultipleChoiceFormula\MultipleChoiceFormulaPropositionResource>")
      * @Serializer\Groups({"details", "resource_storage"})
      */
     private $propositions = array();
@@ -71,6 +71,20 @@ class MultipleChoiceFormulaQuestionResource extends CommonResource
      * @Serializer\Groups({"details", "resource_storage"})
      */
     private $doNotShuffle;
+    
+    /**
+     * @var int $pictureId;
+     * @Serializer\Type("integer")
+     * @Serializer\Groups({"details", "resource_storage"})
+     */
+    private $pictureId = 0;
+    
+    /**
+     * @var array 
+     * @Serializer\Type("array<integer>")
+     * @Serializer\Groups({"details", "resource_storage"})
+     */
+    private $picturePropositionIds = array();
 
     /**
      * Set comment
@@ -191,7 +205,40 @@ class MultipleChoiceFormulaQuestionResource extends CommonResource
     {
         return $this->doNotShuffle;
     }
+    
+    /**
+     * Get pictureId
+     * 
+     * @return int
+     */
+    public function getPictureId() {
+        return $this->pictureId;
+    }
 
+    /**
+     * Set pictureId
+     * @param int $pictureId
+     */
+    public function setPictureId($pictureId) {
+        $this->pictureId = $pictureId;
+    }
+    
+    /**
+     * Get picturePropositionIds
+     * @return array
+     */
+    public function getPicturePropositionIds() {
+        return $this->picturePropositionIds;
+    }
+
+    /**
+     * Set picturePropositionIds
+     * @param array $picturePropositionIds
+     */
+    public function setPicturePropositionIds($picturePropositionIds) {
+        $this->picturePropositionIds = $picturePropositionIds;
+    }
+    
     /**
      * Validate the question resource.
      *
@@ -199,7 +246,7 @@ class MultipleChoiceFormulaQuestionResource extends CommonResource
      */
     public function  validate($param = null)
     {
-        if ($this->question === null || $this->question == '') {
+        if (($this->question === null || $this->question == '') && ($this->pictureId === 0)) {
             throw new \LogicException('Invalid question');
         }
 
@@ -207,7 +254,7 @@ class MultipleChoiceFormulaQuestionResource extends CommonResource
 
         foreach ($this->propositions as $prop) {
             /** @var MultipleChoicePropositionResource $prop */
-            if ($prop->getText() === null || $prop->getText() === "") {
+            if (($prop->getText() === null || $prop->getText() === "") && ($prop->picturePropositionId === 0)) {
                 throw new \LogicException('Invalid proposition');
             }
 

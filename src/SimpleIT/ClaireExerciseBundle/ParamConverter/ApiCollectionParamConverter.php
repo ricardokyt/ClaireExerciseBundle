@@ -18,7 +18,7 @@
 
 namespace SimpleIT\ClaireExerciseBundle\ParamConverter;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use SimpleIT\ClaireExerciseBundle\Exception\Api\ApiException;
 use SimpleIT\ClaireExerciseBundle\Model\Collection\CollectionInformation;
@@ -36,13 +36,13 @@ class ApiCollectionParamConverter implements ParamConverterInterface
     /**
      * Apply
      *
-     * @param Request                $request       Request
-     * @param ConfigurationInterface $configuration Configuration
+     * @param Request        $request       Request
+     * @param ParamConverter $configuration Configuration
      *
      * @throws \SimpleIT\ClaireExerciseBundle\Exception\Api\ApiException
      * @return bool
      */
-    public function apply(Request $request, ConfigurationInterface $configuration)
+    public function apply(Request $request, ParamConverter $configuration)
     {
         $collectionInformation = new CollectionInformation();
 
@@ -118,12 +118,12 @@ class ApiCollectionParamConverter implements ParamConverterInterface
     /**
      * Supports (only CollectionInformation)
      *
-     * @param ConfigurationInterface $configuration
+     * @param ParamConverter $configuration
      *
      * @return bool
      */
     public function supports(
-        ConfigurationInterface $configuration
+        ParamConverter $configuration
     )
     {
         $isClassSupported = false;

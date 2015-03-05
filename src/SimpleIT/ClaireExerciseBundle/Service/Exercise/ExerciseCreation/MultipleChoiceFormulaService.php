@@ -255,6 +255,10 @@ class MultipleChoiceFormulaService extends ExerciseCreationService
             $exerciseQuestion->setQuestion($wording);
             $exerciseQuestion->setComment($modelQuestion->getComment());
             $exerciseQuestion->setOriginResource($modelQuestion->getOriginResource());
+            
+            // On reupere l'imageId de question et la liste d'imageId de propositions
+            $exerciseQuestion->setPictureId($modelQuestion->getPictureId());
+            $exerciseQuestion->setPicturePropositionIds($modelQuestion->getPicturePropositionIds());
 
             // organise the propositions ids
             $forcedRightId = array();
@@ -312,9 +316,12 @@ class MultipleChoiceFormulaService extends ExerciseCreationService
             // add the propositions to the exercise question
             sort($propositionIds);
             foreach ($propositionIds as $propId) {
+                // il faut corriger l'appel à la methode d'ajout de proposition en lui passant l'attribut picturePropositionId en parametre
                 $exerciseQuestion->addProposition(
                     $modelQuestion->getRight()[$propId],
-                    $this->parseStringWithVariablesForMCFQ($modelQuestion->getPropositions()[$propId], $variables)
+                    $this->parseStringWithVariablesForMCFQ($modelQuestion->getPropositions()[$propId], $variables) /*,
+                    null,
+                    ($exerciseQuestion->getPropositions()[$propId])->getPicturePropositionId() */
                 );
             }
 
